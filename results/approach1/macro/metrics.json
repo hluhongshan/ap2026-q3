@@ -2672,6 +2672,293 @@
           "n": 63
         }
       ]
+    },
+    "post_hoc": {
+      "disclosure": "POST-HOC: the test block had already been seen before this robustness check; these are disclosed post-hoc results, not pre-registered test results.",
+      "label": "post-hoc robustness check",
+      "rank_kept": 6,
+      "ridge_selection": {
+        "ridge_selected": {
+          "include_d_t": false,
+          "extension_beyond_brief": false,
+          "ridge_grid": [
+            0.0001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "chosen_ridge": 10.0,
+          "tuning_table": [
+            {
+              "ridge": 10.0,
+              "tuning_brier": 0.11710207836046739,
+              "tuning_auc": 0.8423645320197044,
+              "tuning_accuracy": 0.8611111111111112,
+              "converged": 36,
+              "n": 36
+            },
+            {
+              "ridge": 1.0,
+              "tuning_brier": 0.12007514908962512,
+              "tuning_auc": 0.8817733990147784,
+              "tuning_accuracy": 0.8611111111111112,
+              "converged": 36,
+              "n": 36
+            },
+            {
+              "ridge": 0.1,
+              "tuning_brier": 0.13584767200561992,
+              "tuning_auc": 0.8768472906403941,
+              "tuning_accuracy": 0.8611111111111112,
+              "converged": 36,
+              "n": 36
+            },
+            {
+              "ridge": 0.01,
+              "tuning_brier": 0.13926363428989832,
+              "tuning_auc": 0.9014778325123153,
+              "tuning_accuracy": 0.8611111111111112,
+              "converged": 36,
+              "n": 36
+            },
+            {
+              "ridge": 0.0001,
+              "tuning_brier": 0.14631352027721922,
+              "tuning_auc": 0.8866995073891626,
+              "tuning_accuracy": 0.8333333333333334,
+              "converged": 36,
+              "n": 36
+            }
+          ],
+          "test_metrics": {
+            "Brier": 0.21830308933981277,
+            "AUC": 0.6880695940347971,
+            "accuracy": 0.638095238095238,
+            "n": 105,
+            "positives": 34,
+            "class_share": 0.3238095238095238
+          },
+          "share_extreme_0p99_0p01": 0.18095238095238095,
+          "converged_origins": 105,
+          "n_test_origins": 105
+        },
+        "ridge_selected_with_d_t": {
+          "include_d_t": true,
+          "extension_beyond_brief": true,
+          "ridge_grid": [
+            0.0001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "chosen_ridge": 10.0,
+          "tuning_table": [
+            {
+              "ridge": 10.0,
+              "tuning_brier": 0.11459134086238815,
+              "tuning_auc": 0.8423645320197044,
+              "tuning_accuracy": 0.8611111111111112,
+              "converged": 36,
+              "n": 36
+            },
+            {
+              "ridge": 1.0,
+              "tuning_brier": 0.12289723040484714,
+              "tuning_auc": 0.8768472906403941,
+              "tuning_accuracy": 0.8611111111111112,
+              "converged": 36,
+              "n": 36
+            },
+            {
+              "ridge": 0.1,
+              "tuning_brier": 0.14555965638344381,
+              "tuning_auc": 0.8768472906403941,
+              "tuning_accuracy": 0.8333333333333334,
+              "converged": 36,
+              "n": 36
+            },
+            {
+              "ridge": 0.01,
+              "tuning_brier": 0.1743778812053274,
+              "tuning_auc": 0.8669950738916257,
+              "tuning_accuracy": 0.8055555555555556,
+              "converged": 36,
+              "n": 36
+            },
+            {
+              "ridge": 0.0001,
+              "tuning_brier": 0.1908765782681895,
+              "tuning_auc": 0.8571428571428571,
+              "tuning_accuracy": 0.8055555555555556,
+              "converged": 36,
+              "n": 36
+            }
+          ],
+          "test_metrics": {
+            "Brier": 0.2001414484025663,
+            "AUC": 0.7390223695111847,
+            "accuracy": 0.7047619047619048,
+            "n": 105,
+            "positives": 34,
+            "class_share": 0.3238095238095238
+          },
+          "share_extreme_0p99_0p01": 0.18095238095238095,
+          "converged_origins": 105,
+          "n_test_origins": 105
+        }
+      },
+      "test_table": [
+        {
+          "model": "original_probit",
+          "Brier": 0.2396164064284019,
+          "AUC": 0.6928334714167357,
+          "accuracy": 0.638095238095238,
+          "share_extreme_0p99_0p01": 0.2761904761904762,
+          "n": 105,
+          "positives": 34
+        },
+        {
+          "model": "ridge_selected_probit",
+          "Brier": 0.21830308933981277,
+          "AUC": 0.6880695940347971,
+          "accuracy": 0.638095238095238,
+          "share_extreme_0p99_0p01": 0.18095238095238095,
+          "n": 105,
+          "positives": 34
+        },
+        {
+          "model": "ridge_selected_probit_with_d_t",
+          "Brier": 0.2001414484025663,
+          "AUC": 0.7390223695111847,
+          "accuracy": 0.7047619047619048,
+          "share_extreme_0p99_0p01": 0.18095238095238095,
+          "n": 105,
+          "positives": 34
+        },
+        {
+          "model": "prior",
+          "Brier": 0.2482164885789122,
+          "AUC": 0.603976801988401,
+          "accuracy": 0.6761904761904762,
+          "share_extreme_0p99_0p01": 0.0,
+          "n": 105,
+          "positives": 34
+        },
+        {
+          "model": "persistence",
+          "Brier": 0.22857142857142856,
+          "AUC": 0.7390223695111847,
+          "accuracy": 0.7714285714285715,
+          "share_extreme_0p99_0p01": 1.0,
+          "n": 105,
+          "positives": 34
+        }
+      ],
+      "auc_difference_vs_persistence": {
+        "original_probit": {
+          "point_auc": 0.6928334714167357,
+          "persistence_auc": 0.7390223695111847,
+          "point_difference": -0.04618889809444904,
+          "ci95_low": -0.2374563904349619,
+          "ci95_high": 0.03518026373496365,
+          "n_valid_replicates": 5000
+        },
+        "ridge_selected_probit": {
+          "point_auc": 0.6880695940347971,
+          "persistence_auc": 0.7390223695111847,
+          "point_difference": -0.05095277547638766,
+          "ci95_low": -0.24767569733342434,
+          "ci95_high": 0.05426721578684547,
+          "n_valid_replicates": 5000
+        },
+        "ridge_selected_probit_with_d_t": {
+          "point_auc": 0.7390223695111847,
+          "persistence_auc": 0.7390223695111847,
+          "point_difference": 0.0,
+          "ci95_low": -0.1315835160818714,
+          "ci95_high": 0.07134411606326146,
+          "n_valid_replicates": 5000
+        }
+      },
+      "bootstrap": {
+        "method": "moving block bootstrap of 12 months",
+        "block_length_months": 12,
+        "replicates_requested": 5000,
+        "seed": 42,
+        "paired_across_models": true,
+        "note": "resamples with only one class are skipped"
+      },
+      "nowcast_check": {
+        "paired_ex_covid": true,
+        "n_quarters_with_all_three_positions": 27,
+        "rmse_by_position": {
+          "1": {
+            "n_quarters": 27,
+            "bridge": 0.7095019003622414,
+            "rw_drift": 1.2578223423790367
+          },
+          "2": {
+            "n_quarters": 27,
+            "bridge": 0.8065227900981419,
+            "rw_drift": 1.2578223423790367
+          },
+          "3": {
+            "n_quarters": 27,
+            "bridge": 0.8784375990831019,
+            "rw_drift": 1.2578223423790367
+          }
+        },
+        "paired_rmse_month3_minus_month1": 0.16893569872086056,
+        "paired_rmse_difference_ci95": [
+          -0.10713123361126417,
+          0.4390171691471327
+        ],
+        "concrete_quarter": {
+          "quarter": "2025Q2",
+          "positions": [
+            {
+              "month_position": 1,
+              "origin_date": "2025-04-30",
+              "aligned_input_months": [
+                "2025-04-30"
+              ],
+              "n_aligned_input_months": 1,
+              "n_public_rows_for_pca": 184,
+              "n_factor_series": 28,
+              "n_training_quarters": 61
+            },
+            {
+              "month_position": 2,
+              "origin_date": "2025-05-31",
+              "aligned_input_months": [
+                "2025-04-30",
+                "2025-05-31"
+              ],
+              "n_aligned_input_months": 2,
+              "n_public_rows_for_pca": 185,
+              "n_factor_series": 28,
+              "n_training_quarters": 61
+            },
+            {
+              "month_position": 3,
+              "origin_date": "2025-06-30",
+              "aligned_input_months": [
+                "2025-04-30",
+                "2025-05-31",
+                "2025-06-30"
+              ],
+              "n_aligned_input_months": 3,
+              "n_public_rows_for_pca": 186,
+              "n_factor_series": 28,
+              "n_training_quarters": 61
+            }
+          ]
+        },
+        "assessment": "not a data-flow bug: month 3 uses strictly more aligned monthly factor rows and more public rows; the ex-COVID RMSE increase is small and its paired quarter-bootstrap interval is reported"
+      },
+      "elapsed_seconds": 3.9314537500031292
     }
   },
   "fit_seconds": 3.609234417002881,
