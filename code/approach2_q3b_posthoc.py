@@ -673,7 +673,7 @@ def current_test_predictions(path: Path) -> dict:
     base = test[test["arm"] == "probit"].sort_values("origin_index")
     origin_index = base["origin_index"].to_numpy(dtype=int)
     y = base["y_true"].to_numpy(dtype=float)
-    dates = pd.DatetimeIndex(base["target_date"])
+    origin_dates = pd.DatetimeIndex(base["origin_date"])
     arms = {}
     for arm in sorted(test["arm"].unique()):
         subset = test[test["arm"] == arm]
@@ -687,7 +687,7 @@ def current_test_predictions(path: Path) -> dict:
             "per_seed": per_seed,
             "mean": np.nanmean(np.vstack(list(per_seed.values())), axis=0),
         }
-    return {"origin_index": origin_index, "y": y, "dates": dates, "arms": arms}
+    return {"origin_index": origin_index, "y": y, "origin_dates": origin_dates, "arms": arms}
 
 
 def premium_pair(
@@ -938,7 +938,7 @@ def retrain(args: argparse.Namespace, diagnostics: dict) -> dict:
     current_payload = json.loads(METRICS.read_text(encoding="utf-8"))
     origin_index = current["origin_index"]
     y_test = current["y"]
-    dates = current["dates"]
+    origin_dates = current["origin_dates"]
 
     retrained_arms = {}
     retrained_comparison = {}
@@ -1120,7 +1120,7 @@ def retrain(args: argparse.Namespace, diagnostics: dict) -> dict:
                         "arm": arm,
                         "seed": int(seed),
                         "origin_index": int(origin),
-                        "origin_date": dates[position],
+                        "origin_date": origin_dates[position],
                         "target_date": pd.Timestamp(test["target_date"].iloc[position]),
                         "block": "test",
                         "y_true": float(y_test[position]),
