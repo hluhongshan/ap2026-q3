@@ -134,6 +134,23 @@ class TestQ3BSignal(unittest.TestCase):
         self.assertLess(lstm_brier, prior_brier - 0.01)
         self.assertLess(lstm_brier, 0.20)
 
+    def test_min_epochs_blocks_early_stopping(self):
+        aligned, label = synthetic_panel()
+        means, stds, columns = Q3B.fit_feature_scaler(aligned, np.arange(0, 121), 0.5)
+        data = Q3B.build_training_arrays(
+            aligned, label, 120, 12, 18, columns, means, stds
+        )
+        args = Q3B.parse_args([])
+        args.max_epochs = 40
+        args.patience = 1
+        args.min_epochs = 10
+        hp = {"hidden": 8, "layers": 1, "dropout": 0.2}
+        _, info = Q3B.train_lstm(
+            data["X_train"], data["y_train"], data["X_val"], data["y_val"], hp, 7, args
+        )
+        self.assertGreaterEqual(info["epochs_run"], 10)
+        self.assertEqual(info["min_epochs"], 10)
+
     def test_same_seed_same_result(self):
         aligned, label = synthetic_panel()
         cfg = Q3A.RunConfig(seed=42, min_train=80, tuning_months=0, min_coverage=0.5)

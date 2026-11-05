@@ -117,6 +117,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--val-months", type=int, default=18)
     parser.add_argument("--n-seeds", type=int, default=3)
     parser.add_argument("--max-epochs", type=int, default=300)
+    parser.add_argument("--min-epochs", type=int, default=0)
     parser.add_argument("--patience", type=int, default=30)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
@@ -296,7 +297,8 @@ def train_lstm(
             best_epoch = epoch
             best_state = {key: value.detach().clone() for key, value in model.state_dict().items()}
         epochs_run = epoch
-        if epoch - best_epoch >= int(args.patience):
+        min_epochs = int(getattr(args, "min_epochs", 0))
+        if epoch - best_epoch >= int(args.patience) and epoch >= min_epochs:
             break
     if best_state is not None:
         model.load_state_dict(best_state)
@@ -310,6 +312,7 @@ def train_lstm(
         "n_neg": int(n_neg),
         "n_train": int(len(y_train)),
         "n_val": int(len(y_val)),
+        "min_epochs": int(getattr(args, "min_epochs", 0)),
         "converged": bool(best_epoch > 0),
     }
     return model, info
@@ -400,6 +403,7 @@ def run_lstm_walk(
                         "pos_weight": float(info["pos_weight"]),
                         "best_epoch": int(info["best_epoch"]),
                         "epochs_run": int(info["epochs_run"]),
+                        "min_epochs": int(info["min_epochs"]),
                         "train_loss": float(info["train_loss"]),
                         "val_loss": float(info["val_loss"]),
                     }
