@@ -1,0 +1,3674 @@
+{
+  "params": {
+    "approach": "Q3A",
+    "seed": 42,
+    "panel": "data/clean/macro_panel.csv",
+    "meta": "data/clean/macro_meta.csv",
+    "config": {
+      "seed": 42,
+      "min_train": 60,
+      "tuning_months": 36,
+      "max_rank": 8,
+      "min_coverage": 0.5,
+      "ridge": 0.0001,
+      "nw_lag": 12,
+      "cluster_window": 36,
+      "cluster_step": 12,
+      "threshold": 50.0,
+      "sens_threshold": 49.5,
+      "min_pair_corr_obs": 18
+    },
+    "label": {
+      "definition": "d_t = 1{PMI_t < threshold and PMI_{t-1} < threshold}",
+      "threshold": 50.0,
+      "rule": "two_month",
+      "justification": "two consecutive prints reduce noise around the 50 boundary",
+      "sensitivity": {
+        "threshold": 49.5,
+        "one_month_rule": "d_t = 1{PMI_t < threshold}"
+      }
+    },
+    "information_set": "F_t = {x_{i,s}: s + L_i <= t}; one alignment function shifts each series by L_i",
+    "preprocessing": "standardisation and PCA use only rows public at the origin; missing values become 0 after standardisation; series with below 50% training-window coverage are dropped",
+    "lags": {
+      "central_bank_assets_yoy": 1,
+      "cgb10y": 0,
+      "cgb2y": 0,
+      "cgb30y": 0,
+      "cgb5y": 0,
+      "commodity_price_yoy": 1,
+      "commodity_spot_yoy": 0,
+      "consumer_confidence": 1,
+      "cpi_yoy": 1,
+      "electricity_yoy": 1,
+      "exports_yoy": 1,
+      "fai_ytd_yoy": 1,
+      "fiscal_revenue_yoy": 1,
+      "fx_reserves_yoy": 1,
+      "gdp_yoy": 1,
+      "imports_yoy": 1,
+      "industrial_production_yoy": 1,
+      "industrial_profit_yoy": 1,
+      "lpr_1y": 0,
+      "lpr_5y": 0,
+      "m1_yoy": 1,
+      "m2_yoy": 1,
+      "margin_balance_yoy": 0,
+      "new_credit_yoy": 1,
+      "pmi": 0,
+      "pmi_non_man": 0,
+      "ppi_yoy": 1,
+      "real_estate_climate": 1,
+      "retail_yoy": 1,
+      "shibor_3m": 0,
+      "spread_10y_2y": 0,
+      "stock_mktcap_yoy": 0,
+      "tsf_12m_yoy": 1,
+      "unemployment": 1
+    },
+    "factor_exclusions": [
+      "gdp_yoy",
+      "cgb10y",
+      "spread_10y_2y",
+      "shibor_3m"
+    ],
+    "controls": [
+      "cgb10y",
+      "spread_10y_2y"
+    ],
+    "shibor_sensitivity": "shibor_3m",
+    "validation": {
+      "scheme": "expanding walk-forward, refit monthly",
+      "min_train_months": 60,
+      "tuning_months": 36,
+      "rank_criterion": "walk-forward CV nowcast RMSE at month 3 on the tuning block",
+      "test_block_only_for_reported_metrics": true,
+      "test_dates": {
+        "origin_start": "2018-01-31",
+        "origin_end": "2026-09-30",
+        "target_start": "2018-02-28",
+        "target_end": "2026-10-31",
+        "origins": 105
+      }
+    },
+    "clustering": {
+      "note": "clustering uses reference-month series, studies co-movement, and is not used for forecasting",
+      "window_months": 36,
+      "step_months": 12,
+      "distance": "sqrt(2*(1-rho))",
+      "linkage": "Ward",
+      "k_selection": "maximum silhouette"
+    }
+  },
+  "metrics": {
+    "label": {
+      "full_sample_regime_share": 0.208955223880597,
+      "test_class_share": 0.3238095238095238,
+      "test_positives": 34
+    },
+    "validation": {
+      "tuning_origin_start": "2015-01-31",
+      "tuning_origin_end": "2017-12-31",
+      "test_origin_start": "2018-01-31",
+      "test_origin_end": "2026-09-30",
+      "test_target_start": "2018-02-28",
+      "test_target_end": "2026-10-31",
+      "test_origins": 105,
+      "test_target_dates": [
+        "2018-02-28",
+        "2018-03-31",
+        "2018-04-30",
+        "2018-05-31",
+        "2018-06-30",
+        "2018-07-31",
+        "2018-08-31",
+        "2018-09-30",
+        "2018-10-31",
+        "2018-11-30",
+        "2018-12-31",
+        "2019-01-31",
+        "2019-02-28",
+        "2019-03-31",
+        "2019-04-30",
+        "2019-05-31",
+        "2019-06-30",
+        "2019-07-31",
+        "2019-08-31",
+        "2019-09-30",
+        "2019-10-31",
+        "2019-11-30",
+        "2019-12-31",
+        "2020-01-31",
+        "2020-02-29",
+        "2020-03-31",
+        "2020-04-30",
+        "2020-05-31",
+        "2020-06-30",
+        "2020-07-31",
+        "2020-08-31",
+        "2020-09-30",
+        "2020-10-31",
+        "2020-11-30",
+        "2020-12-31",
+        "2021-01-31",
+        "2021-02-28",
+        "2021-03-31",
+        "2021-04-30",
+        "2021-05-31",
+        "2021-06-30",
+        "2021-07-31",
+        "2021-08-31",
+        "2021-09-30",
+        "2021-10-31",
+        "2021-11-30",
+        "2021-12-31",
+        "2022-01-31",
+        "2022-02-28",
+        "2022-03-31",
+        "2022-04-30",
+        "2022-05-31",
+        "2022-06-30",
+        "2022-07-31",
+        "2022-08-31",
+        "2022-09-30",
+        "2022-10-31",
+        "2022-11-30",
+        "2022-12-31",
+        "2023-01-31",
+        "2023-02-28",
+        "2023-03-31",
+        "2023-04-30",
+        "2023-05-31",
+        "2023-06-30",
+        "2023-07-31",
+        "2023-08-31",
+        "2023-09-30",
+        "2023-10-31",
+        "2023-11-30",
+        "2023-12-31",
+        "2024-01-31",
+        "2024-02-29",
+        "2024-03-31",
+        "2024-04-30",
+        "2024-05-31",
+        "2024-06-30",
+        "2024-07-31",
+        "2024-08-31",
+        "2024-09-30",
+        "2024-10-31",
+        "2024-11-30",
+        "2024-12-31",
+        "2025-01-31",
+        "2025-02-28",
+        "2025-03-31",
+        "2025-04-30",
+        "2025-05-31",
+        "2025-06-30",
+        "2025-07-31",
+        "2025-08-31",
+        "2025-09-30",
+        "2025-10-31",
+        "2025-11-30",
+        "2025-12-31",
+        "2026-01-31",
+        "2026-02-28",
+        "2026-03-31",
+        "2026-04-30",
+        "2026-05-31",
+        "2026-06-30",
+        "2026-07-31",
+        "2026-08-31",
+        "2026-09-30",
+        "2026-10-31"
+      ]
+    },
+    "rank_selection": {
+      "chosen_rank": 6,
+      "criterion": "walk-forward CV nowcast RMSE at month 3 on the tuning block",
+      "table": [
+        {
+          "rank": 1,
+          "cv_rmse_month3": 0.6774076023296776,
+          "n": 12
+        },
+        {
+          "rank": 2,
+          "cv_rmse_month3": 0.8006497485704804,
+          "n": 12
+        },
+        {
+          "rank": 3,
+          "cv_rmse_month3": 0.6174665498369916,
+          "n": 12
+        },
+        {
+          "rank": 4,
+          "cv_rmse_month3": 0.43128775949006803,
+          "n": 12
+        },
+        {
+          "rank": 5,
+          "cv_rmse_month3": 0.38380027994669175,
+          "n": 12
+        },
+        {
+          "rank": 6,
+          "cv_rmse_month3": 0.3564639776474443,
+          "n": 12
+        },
+        {
+          "rank": 7,
+          "cv_rmse_month3": 0.4564299131335236,
+          "n": 12
+        },
+        {
+          "rank": 8,
+          "cv_rmse_month3": 0.52706247750823,
+          "n": 12
+        }
+      ]
+    },
+    "factor_pca": {
+      "explained_variance_ratio": [
+        0.3097934073225422,
+        0.15824797359822262,
+        0.09459622457126102,
+        0.05899227617695398,
+        0.055622062536466586,
+        0.042597722253199154,
+        0.037073586018954406,
+        0.03591797497908299
+      ],
+      "top_loadings": {
+        "1": [
+          {
+            "series": "cgb30y",
+            "loading": 0.25858968820200673
+          },
+          {
+            "series": "industrial_production_yoy",
+            "loading": 0.24598229495656757
+          },
+          {
+            "series": "pmi_non_man",
+            "loading": 0.23892284594257263
+          },
+          {
+            "series": "retail_yoy",
+            "loading": 0.23670250825781902
+          },
+          {
+            "series": "cgb5y",
+            "loading": 0.23438910122792472
+          }
+        ],
+        "2": [
+          {
+            "series": "cgb5y",
+            "loading": 0.30244225407570696
+          },
+          {
+            "series": "lpr_1y",
+            "loading": 0.29860605171594323
+          },
+          {
+            "series": "imports_yoy",
+            "loading": -0.2948741513970091
+          },
+          {
+            "series": "cgb2y",
+            "loading": 0.2943134339072784
+          },
+          {
+            "series": "cgb30y",
+            "loading": 0.28895058484854297
+          }
+        ],
+        "3": [
+          {
+            "series": "consumer_confidence",
+            "loading": 0.4642933445055103
+          },
+          {
+            "series": "m2_yoy",
+            "loading": -0.3007386655818853
+          },
+          {
+            "series": "fx_reserves_yoy",
+            "loading": -0.30055551673776776
+          },
+          {
+            "series": "commodity_spot_yoy",
+            "loading": 0.29965476910349353
+          },
+          {
+            "series": "central_bank_assets_yoy",
+            "loading": -0.2949281232182027
+          }
+        ],
+        "4": [
+          {
+            "series": "m1_yoy",
+            "loading": 0.4775940843831853
+          },
+          {
+            "series": "pmi",
+            "loading": 0.3540685426615241
+          },
+          {
+            "series": "stock_mktcap_yoy",
+            "loading": 0.2825423180219602
+          },
+          {
+            "series": "cgb2y",
+            "loading": -0.24604525341025452
+          },
+          {
+            "series": "pmi_non_man",
+            "loading": 0.24199641801546873
+          }
+        ],
+        "5": [
+          {
+            "series": "cpi_yoy",
+            "loading": 0.46206827547070445
+          },
+          {
+            "series": "fai_ytd_yoy",
+            "loading": -0.39264918176736113
+          },
+          {
+            "series": "stock_mktcap_yoy",
+            "loading": -0.3755081999645053
+          },
+          {
+            "series": "industrial_profit_yoy",
+            "loading": -0.28458443436837894
+          },
+          {
+            "series": "real_estate_climate",
+            "loading": 0.26265273718101234
+          }
+        ],
+        "6": [
+          {
+            "series": "stock_mktcap_yoy",
+            "loading": 0.6560044795418201
+          },
+          {
+            "series": "margin_balance_yoy",
+            "loading": 0.3620646391150096
+          },
+          {
+            "series": "tsf_12m_yoy",
+            "loading": 0.2902457436159924
+          },
+          {
+            "series": "m1_yoy",
+            "loading": -0.2662645844559023
+          },
+          {
+            "series": "exports_yoy",
+            "loading": 0.2574680653490754
+          }
+        ],
+        "7": [
+          {
+            "series": "pmi",
+            "loading": 0.5675606179709063
+          },
+          {
+            "series": "pmi_non_man",
+            "loading": 0.40668669431810084
+          },
+          {
+            "series": "fiscal_revenue_yoy",
+            "loading": -0.33939273016437044
+          },
+          {
+            "series": "cpi_yoy",
+            "loading": -0.21441395673503538
+          },
+          {
+            "series": "m1_yoy",
+            "loading": -0.20297547741791463
+          }
+        ],
+        "8": [
+          {
+            "series": "new_credit_yoy",
+            "loading": 0.5369432250413765
+          },
+          {
+            "series": "exports_yoy",
+            "loading": 0.35896219093315873
+          },
+          {
+            "series": "commodity_price_yoy",
+            "loading": -0.34612098137310854
+          },
+          {
+            "series": "pmi_non_man",
+            "loading": 0.24183537953379047
+          },
+          {
+            "series": "m1_yoy",
+            "loading": -0.21588881968041912
+          }
+        ]
+      },
+      "n_series": 29,
+      "series": [
+        "pmi",
+        "pmi_non_man",
+        "cpi_yoy",
+        "ppi_yoy",
+        "m2_yoy",
+        "m1_yoy",
+        "tsf_12m_yoy",
+        "new_credit_yoy",
+        "lpr_1y",
+        "retail_yoy",
+        "industrial_production_yoy",
+        "fai_ytd_yoy",
+        "exports_yoy",
+        "imports_yoy",
+        "consumer_confidence",
+        "electricity_yoy",
+        "real_estate_climate",
+        "fx_reserves_yoy",
+        "unemployment",
+        "fiscal_revenue_yoy",
+        "commodity_price_yoy",
+        "stock_mktcap_yoy",
+        "commodity_spot_yoy",
+        "central_bank_assets_yoy",
+        "margin_balance_yoy",
+        "cgb2y",
+        "cgb5y",
+        "cgb30y",
+        "industrial_profit_yoy"
+      ],
+      "descriptive_full_sample": true
+    },
+    "probit": {
+      "test": {
+        "probit": {
+          "Brier": 0.2396164064284019,
+          "AUC": 0.6928334714167357,
+          "accuracy": 0.638095238095238,
+          "n": 105,
+          "positives": 34,
+          "class_share": 0.3238095238095238
+        },
+        "prior": {
+          "Brier": 0.2482164885789122,
+          "AUC": 0.603976801988401,
+          "accuracy": 0.6761904761904762,
+          "n": 105,
+          "positives": 34,
+          "class_share": 0.3238095238095238
+        },
+        "persistence": {
+          "Brier": 0.22857142857142856,
+          "AUC": 0.7390223695111847,
+          "accuracy": 0.7714285714285715,
+          "n": 105,
+          "positives": 34,
+          "class_share": 0.3238095238095238
+        }
+      },
+      "threshold_sensitivity": {
+        "threshold_49.5": {
+          "probit": {
+            "Brier": 0.1714973737297558,
+            "AUC": 0.7158555729984302,
+            "accuracy": 0.7714285714285715,
+            "n": 105,
+            "positives": 14,
+            "class_share": 0.13333333333333333
+          },
+          "prior": {
+            "Brier": 0.12353699812948624,
+            "AUC": 0.6051805337519623,
+            "accuracy": 0.8666666666666667,
+            "n": 105,
+            "positives": 14,
+            "class_share": 0.13333333333333333
+          },
+          "persistence": {
+            "Brier": 0.17142857142857143,
+            "AUC": 0.6291208791208791,
+            "accuracy": 0.8285714285714286,
+            "n": 105,
+            "positives": 14,
+            "class_share": 0.13333333333333333
+          },
+          "definition": {
+            "threshold": 49.5,
+            "rule": "two_month",
+            "test_class_share": 0.13333333333333333
+          }
+        },
+        "one_month": {
+          "probit": {
+            "Brier": 0.2468166976848903,
+            "AUC": 0.6625364431486881,
+            "accuracy": 0.6571428571428571,
+            "n": 105,
+            "positives": 49,
+            "class_share": 0.4666666666666667
+          },
+          "prior": {
+            "Brier": 0.30332316712559615,
+            "AUC": 0.6441326530612245,
+            "accuracy": 0.5333333333333333,
+            "n": 105,
+            "positives": 49,
+            "class_share": 0.4666666666666667
+          },
+          "persistence": {
+            "Brier": 0.2761904761904762,
+            "AUC": 0.7219387755102041,
+            "accuracy": 0.7238095238095238,
+            "n": 105,
+            "positives": 49,
+            "class_share": 0.4666666666666667
+          },
+          "definition": {
+            "threshold": 50.0,
+            "rule": "one_month",
+            "test_class_share": 0.4666666666666667
+          }
+        }
+      },
+      "shibor_sensitivity": {
+        "controls": [
+          "cgb10y",
+          "spread_10y_2y",
+          "shibor_3m"
+        ],
+        "test": {
+          "probit": {
+            "Brier": 0.24076416073278706,
+            "AUC": 0.6911764705882353,
+            "accuracy": 0.638095238095238,
+            "n": 105,
+            "positives": 34,
+            "class_share": 0.3238095238095238
+          },
+          "prior": {
+            "Brier": 0.2482164885789122,
+            "AUC": 0.603976801988401,
+            "accuracy": 0.6761904761904762,
+            "n": 105,
+            "positives": 34,
+            "class_share": 0.3238095238095238
+          },
+          "persistence": {
+            "Brier": 0.22857142857142856,
+            "AUC": 0.7390223695111847,
+            "accuracy": 0.7714285714285715,
+            "n": 105,
+            "positives": 34,
+            "class_share": 0.3238095238095238
+          }
+        }
+      },
+      "coefficients_full_sample": {
+        "descriptive": true,
+        "note": "full-sample descriptive fit; not used for walk-forward evaluation",
+        "coefficients": [
+          {
+            "term": "intercept",
+            "estimate": -1.5468803401990419,
+            "info_se": 0.22161176289895712,
+            "info_z": -6.980136433030114,
+            "nw_se": 0.1891133360656483,
+            "nw_z": -8.179647043305618
+          },
+          {
+            "term": "PC1",
+            "estimate": -0.3636411002660619,
+            "info_se": 0.18969331162441735,
+            "info_z": -1.9169948436877515,
+            "nw_se": 0.19221926750144763,
+            "nw_z": -1.8918035896860508
+          },
+          {
+            "term": "PC2",
+            "estimate": 0.32642719518072544,
+            "info_se": 0.17612437238041925,
+            "info_z": 1.8533902535400388,
+            "nw_se": 0.21254068439432625,
+            "nw_z": 1.535833932740641
+          },
+          {
+            "term": "PC3",
+            "estimate": 0.17246361754962733,
+            "info_se": 0.11781794669345373,
+            "info_z": 1.4638144899804968,
+            "nw_se": 0.1333696533714724,
+            "nw_z": 1.2931248840339047
+          },
+          {
+            "term": "PC4",
+            "estimate": -0.3299534412452115,
+            "info_se": 0.1599755968522069,
+            "info_z": -2.0625235832064948,
+            "nw_se": 0.21893829754386157,
+            "nw_z": -1.5070613270805644
+          },
+          {
+            "term": "PC5",
+            "estimate": -0.2054672412677026,
+            "info_se": 0.1369548568484567,
+            "info_z": -1.5002552373520877,
+            "nw_se": 0.1324936399621548,
+            "nw_z": -1.5507705979426019
+          },
+          {
+            "term": "PC6",
+            "estimate": -0.12708937466239406,
+            "info_se": 0.12627728984970696,
+            "info_z": -1.0064309648524579,
+            "nw_se": 0.13485026378520293,
+            "nw_z": -0.9424480983205873
+          },
+          {
+            "term": "cgb10y",
+            "estimate": -0.5927120883345199,
+            "info_se": 0.5969663366982035,
+            "info_z": -0.9928735539976782,
+            "nw_se": 0.7123089828893879,
+            "nw_z": -0.8320996963006996
+          },
+          {
+            "term": "spread_10y_2y",
+            "estimate": -0.3375058611504967,
+            "info_se": 0.22078623789567914,
+            "info_z": -1.5286544323019229,
+            "nw_se": 0.20108003454040896,
+            "nw_z": -1.6784653032405943
+          }
+        ],
+        "n": 201,
+        "loglik": -70.50466368697411,
+        "converged": true,
+        "nw_lag": 12,
+        "ridge": 0.0001,
+        "rank": 6,
+        "factor_series": [
+          "pmi",
+          "pmi_non_man",
+          "cpi_yoy",
+          "ppi_yoy",
+          "m2_yoy",
+          "m1_yoy",
+          "tsf_12m_yoy",
+          "new_credit_yoy",
+          "lpr_1y",
+          "retail_yoy",
+          "industrial_production_yoy",
+          "fai_ytd_yoy",
+          "exports_yoy",
+          "imports_yoy",
+          "consumer_confidence",
+          "electricity_yoy",
+          "real_estate_climate",
+          "fx_reserves_yoy",
+          "unemployment",
+          "fiscal_revenue_yoy",
+          "commodity_price_yoy",
+          "stock_mktcap_yoy",
+          "commodity_spot_yoy",
+          "central_bank_assets_yoy",
+          "margin_balance_yoy",
+          "cgb2y",
+          "cgb5y",
+          "cgb30y",
+          "industrial_profit_yoy"
+        ],
+        "control_series": [
+          "cgb10y",
+          "spread_10y_2y"
+        ]
+      }
+    },
+    "nowcast": {
+      "test_rmse_by_month": {
+        "1": {
+          "n": 35,
+          "bridge": 3.625810252547176,
+          "rw_drift": 4.16314885891342
+        },
+        "2": {
+          "n": 35,
+          "bridge": 3.4112768801737863,
+          "rw_drift": 4.16314885891342
+        },
+        "3": {
+          "n": 35,
+          "bridge": 3.314428625742176,
+          "rw_drift": 4.16314885891342
+        }
+      },
+      "test_rmse_ex_covid": {
+        "1": {
+          "n": 27,
+          "bridge": 0.7095019003622414,
+          "rw_drift": 1.2578223423790367
+        },
+        "2": {
+          "n": 27,
+          "bridge": 0.8065227900981419,
+          "rw_drift": 1.2578223423790367
+        },
+        "3": {
+          "n": 27,
+          "bridge": 0.8784375990831019,
+          "rw_drift": 1.2578223423790367
+        }
+      },
+      "covid_exclusion": "target quarters 2020Q1-2021Q4 excluded",
+      "benchmark": "random walk with drift estimated from the same information set"
+    },
+    "clustering": {
+      "note": "reference-month series, descriptive co-movement study, not used for forecasting",
+      "windows": [
+        {
+          "start_date": "2010-01-31",
+          "end_date": "2012-12-31",
+          "k": 2,
+          "silhouette": 0.369469934672678,
+          "silhouette_by_k": {
+            "2": 0.369469934672678,
+            "3": 0.3661320490545968,
+            "4": 0.20424006064371428,
+            "5": 0.20122914137207973,
+            "6": 0.21332468132403518,
+            "7": 0.2328050262910404,
+            "8": 0.2279678676388004,
+            "9": 0.2350690625179568,
+            "10": 0.23972469189516474
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "new_credit_yoy",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "pmi",
+              "spread_10y_2y",
+              "pmi_non_man",
+              "ppi_yoy",
+              "m2_yoy",
+              "m1_yoy",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "exports_yoy",
+              "imports_yoy",
+              "consumer_confidence",
+              "electricity_yoy",
+              "real_estate_climate",
+              "fx_reserves_yoy",
+              "fiscal_revenue_yoy",
+              "commodity_price_yoy",
+              "stock_mktcap_yoy",
+              "central_bank_assets_yoy",
+              "margin_balance_yoy",
+              "industrial_profit_yoy"
+            ],
+            "2": [
+              "cgb10y",
+              "cpi_yoy",
+              "new_credit_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y"
+            ]
+          }
+        },
+        {
+          "start_date": "2011-01-31",
+          "end_date": "2013-12-31",
+          "k": 9,
+          "silhouette": 0.2795921299854371,
+          "silhouette_by_k": {
+            "2": 0.2033841860305139,
+            "3": 0.2303516324821158,
+            "4": 0.24947807042579828,
+            "5": 0.24821117720493632,
+            "6": 0.2726616345284276,
+            "7": 0.26965258559612626,
+            "8": 0.27605516842982486,
+            "9": 0.2795921299854371,
+            "10": 0.26041310642465987
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "new_credit_yoy",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "cgb10y",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y"
+            ],
+            "2": [
+              "m2_yoy",
+              "m1_yoy",
+              "commodity_price_yoy",
+              "stock_mktcap_yoy"
+            ],
+            "3": [
+              "spread_10y_2y"
+            ],
+            "4": [
+              "new_credit_yoy"
+            ],
+            "5": [
+              "cpi_yoy",
+              "ppi_yoy",
+              "electricity_yoy",
+              "real_estate_climate",
+              "fx_reserves_yoy",
+              "central_bank_assets_yoy",
+              "industrial_profit_yoy"
+            ],
+            "6": [
+              "retail_yoy",
+              "industrial_production_yoy",
+              "exports_yoy",
+              "imports_yoy"
+            ],
+            "7": [
+              "pmi",
+              "pmi_non_man",
+              "fiscal_revenue_yoy"
+            ],
+            "8": [
+              "margin_balance_yoy"
+            ],
+            "9": [
+              "consumer_confidence"
+            ]
+          }
+        },
+        {
+          "start_date": "2012-01-31",
+          "end_date": "2014-12-31",
+          "k": 7,
+          "silhouette": 0.2564969719836135,
+          "silhouette_by_k": {
+            "2": 0.23660385345975002,
+            "3": 0.22620465969552742,
+            "4": 0.2517921420291946,
+            "5": 0.24611595106349243,
+            "6": 0.2549805385919917,
+            "7": 0.2564969719836135,
+            "8": 0.22952381421485005,
+            "9": 0.22470750264093445,
+            "10": 0.21063331463970375
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "new_credit_yoy",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "cgb10y",
+              "fx_reserves_yoy",
+              "commodity_price_yoy",
+              "stock_mktcap_yoy",
+              "central_bank_assets_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y",
+              "industrial_profit_yoy"
+            ],
+            "2": [
+              "m2_yoy",
+              "m1_yoy",
+              "fai_ytd_yoy",
+              "real_estate_climate",
+              "margin_balance_yoy"
+            ],
+            "3": [
+              "new_credit_yoy",
+              "imports_yoy"
+            ],
+            "4": [
+              "exports_yoy",
+              "consumer_confidence"
+            ],
+            "5": [
+              "spread_10y_2y"
+            ],
+            "6": [
+              "pmi_non_man",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "fiscal_revenue_yoy"
+            ],
+            "7": [
+              "pmi",
+              "cpi_yoy",
+              "ppi_yoy",
+              "electricity_yoy",
+              "commodity_spot_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2013-01-31",
+          "end_date": "2015-12-31",
+          "k": 2,
+          "silhouette": 0.376924496765422,
+          "silhouette_by_k": {
+            "2": 0.376924496765422,
+            "3": 0.18689654373983464,
+            "4": 0.19452343292030802,
+            "5": 0.20302059233865427,
+            "6": 0.19984291422984873,
+            "7": 0.19537566533064044,
+            "8": 0.18469711801126526,
+            "9": 0.1797321422543557,
+            "10": 0.1768467617865145
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "spread_10y_2y",
+              "m1_yoy",
+              "new_credit_yoy",
+              "exports_yoy",
+              "consumer_confidence",
+              "fiscal_revenue_yoy",
+              "stock_mktcap_yoy",
+              "margin_balance_yoy"
+            ],
+            "2": [
+              "pmi",
+              "cgb10y",
+              "pmi_non_man",
+              "cpi_yoy",
+              "ppi_yoy",
+              "m2_yoy",
+              "lpr_1y",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "fai_ytd_yoy",
+              "imports_yoy",
+              "electricity_yoy",
+              "real_estate_climate",
+              "fx_reserves_yoy",
+              "commodity_price_yoy",
+              "commodity_spot_yoy",
+              "central_bank_assets_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y",
+              "industrial_profit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2014-01-31",
+          "end_date": "2016-12-31",
+          "k": 4,
+          "silhouette": 0.3197663554115557,
+          "silhouette_by_k": {
+            "2": 0.29064850635937767,
+            "3": 0.3038852530770388,
+            "4": 0.3197663554115557,
+            "5": 0.30077728071502186,
+            "6": 0.3156042371461982,
+            "7": 0.3153159016464376,
+            "8": 0.24613478475457382,
+            "9": 0.24699854001815516,
+            "10": 0.25274887943994484
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "pmi",
+              "cpi_yoy",
+              "ppi_yoy",
+              "m1_yoy",
+              "imports_yoy",
+              "electricity_yoy",
+              "real_estate_climate",
+              "commodity_price_yoy",
+              "commodity_spot_yoy",
+              "industrial_profit_yoy"
+            ],
+            "2": [
+              "cgb10y",
+              "pmi_non_man",
+              "lpr_1y",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "fai_ytd_yoy",
+              "fx_reserves_yoy",
+              "central_bank_assets_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y"
+            ],
+            "3": [
+              "spread_10y_2y",
+              "m2_yoy",
+              "fiscal_revenue_yoy"
+            ],
+            "4": [
+              "new_credit_yoy",
+              "exports_yoy",
+              "consumer_confidence",
+              "stock_mktcap_yoy",
+              "margin_balance_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2015-01-31",
+          "end_date": "2017-12-31",
+          "k": 8,
+          "silhouette": 0.316267913613143,
+          "silhouette_by_k": {
+            "2": 0.3081344863669941,
+            "3": 0.2388455389317382,
+            "4": 0.2669300915194665,
+            "5": 0.29447187648715456,
+            "6": 0.30478605009170734,
+            "7": 0.31476335592726745,
+            "8": 0.316267913613143,
+            "9": 0.31059933191739475,
+            "10": 0.29079572507868023
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "lpr_1y",
+              "fai_ytd_yoy",
+              "stock_mktcap_yoy",
+              "margin_balance_yoy"
+            ],
+            "2": [
+              "cpi_yoy",
+              "m1_yoy"
+            ],
+            "3": [
+              "spread_10y_2y",
+              "m2_yoy",
+              "retail_yoy"
+            ],
+            "4": [
+              "fiscal_revenue_yoy"
+            ],
+            "5": [
+              "cgb10y",
+              "consumer_confidence",
+              "fx_reserves_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y"
+            ],
+            "6": [
+              "pmi",
+              "pmi_non_man",
+              "ppi_yoy",
+              "imports_yoy",
+              "electricity_yoy",
+              "real_estate_climate",
+              "commodity_price_yoy",
+              "commodity_spot_yoy",
+              "central_bank_assets_yoy",
+              "industrial_profit_yoy"
+            ],
+            "7": [
+              "industrial_production_yoy",
+              "exports_yoy"
+            ],
+            "8": [
+              "new_credit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2016-01-31",
+          "end_date": "2018-12-31",
+          "k": 3,
+          "silhouette": 0.30878178404127704,
+          "silhouette_by_k": {
+            "2": 0.2919278423211427,
+            "3": 0.30878178404127704,
+            "4": 0.2113622070034388,
+            "5": 0.21873101785777216,
+            "6": 0.22767552419972595,
+            "7": 0.21111170302665858,
+            "8": 0.20881336633313874,
+            "9": 0.19567546618518106,
+            "10": 0.18456039925457213
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "shibor_3m",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "tsf_12m_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "m2_yoy",
+              "m1_yoy",
+              "tsf_12m_yoy",
+              "new_credit_yoy",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "fai_ytd_yoy",
+              "fiscal_revenue_yoy",
+              "commodity_price_yoy",
+              "stock_mktcap_yoy"
+            ],
+            "2": [
+              "spread_10y_2y",
+              "cpi_yoy",
+              "lpr_1y"
+            ],
+            "3": [
+              "pmi",
+              "cgb10y",
+              "shibor_3m",
+              "pmi_non_man",
+              "ppi_yoy",
+              "exports_yoy",
+              "imports_yoy",
+              "consumer_confidence",
+              "electricity_yoy",
+              "real_estate_climate",
+              "fx_reserves_yoy",
+              "commodity_spot_yoy",
+              "central_bank_assets_yoy",
+              "margin_balance_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y",
+              "industrial_profit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2017-01-31",
+          "end_date": "2019-12-31",
+          "k": 2,
+          "silhouette": 0.2824730200286809,
+          "silhouette_by_k": {
+            "2": 0.2824730200286809,
+            "3": 0.15242896990696317,
+            "4": 0.16104402671410162,
+            "5": 0.17526674582026025,
+            "6": 0.17751212545648562,
+            "7": 0.19248735575491754,
+            "8": 0.20193687738288302,
+            "9": 0.20242882355445024,
+            "10": 0.19611737473299184
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "shibor_3m",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "tsf_12m_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "unemployment",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "spread_10y_2y",
+              "cpi_yoy",
+              "tsf_12m_yoy",
+              "consumer_confidence",
+              "fx_reserves_yoy",
+              "unemployment",
+              "fiscal_revenue_yoy",
+              "stock_mktcap_yoy",
+              "margin_balance_yoy"
+            ],
+            "2": [
+              "pmi",
+              "cgb10y",
+              "shibor_3m",
+              "pmi_non_man",
+              "ppi_yoy",
+              "m2_yoy",
+              "m1_yoy",
+              "new_credit_yoy",
+              "lpr_1y",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "fai_ytd_yoy",
+              "exports_yoy",
+              "imports_yoy",
+              "electricity_yoy",
+              "real_estate_climate",
+              "commodity_price_yoy",
+              "commodity_spot_yoy",
+              "central_bank_assets_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y",
+              "industrial_profit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2018-01-31",
+          "end_date": "2020-12-31",
+          "k": 2,
+          "silhouette": 0.3378160954210869,
+          "silhouette_by_k": {
+            "2": 0.3378160954210869,
+            "3": 0.24735313318629892,
+            "4": 0.26089503879462184,
+            "5": 0.2627037212083851,
+            "6": 0.2522578769598499,
+            "7": 0.2071790957886107,
+            "8": 0.2045379546248364,
+            "9": 0.2015553159091681,
+            "10": 0.2068133140476828
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "shibor_3m",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "tsf_12m_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "unemployment",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "spread_10y_2y",
+              "cpi_yoy",
+              "m2_yoy",
+              "tsf_12m_yoy",
+              "new_credit_yoy",
+              "unemployment",
+              "commodity_price_yoy",
+              "stock_mktcap_yoy",
+              "margin_balance_yoy"
+            ],
+            "2": [
+              "pmi",
+              "cgb10y",
+              "shibor_3m",
+              "pmi_non_man",
+              "ppi_yoy",
+              "m1_yoy",
+              "lpr_1y",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "fai_ytd_yoy",
+              "exports_yoy",
+              "imports_yoy",
+              "consumer_confidence",
+              "electricity_yoy",
+              "real_estate_climate",
+              "fx_reserves_yoy",
+              "fiscal_revenue_yoy",
+              "commodity_spot_yoy",
+              "central_bank_assets_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y",
+              "industrial_profit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2019-01-31",
+          "end_date": "2021-12-31",
+          "k": 8,
+          "silhouette": 0.3306829496282513,
+          "silhouette_by_k": {
+            "2": 0.27636188250504656,
+            "3": 0.22151695702157911,
+            "4": 0.2203973678074032,
+            "5": 0.26403903496364467,
+            "6": 0.2788211361320597,
+            "7": 0.32648481856631856,
+            "8": 0.3306829496282513,
+            "9": 0.3129561405058936,
+            "10": 0.3025403254925249
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "shibor_3m",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "tsf_12m_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "lpr_5y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "unemployment",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "cpi_yoy",
+              "lpr_1y",
+              "lpr_5y"
+            ],
+            "2": [
+              "spread_10y_2y",
+              "m2_yoy",
+              "tsf_12m_yoy",
+              "new_credit_yoy",
+              "unemployment"
+            ],
+            "3": [
+              "ppi_yoy",
+              "imports_yoy",
+              "commodity_price_yoy",
+              "commodity_spot_yoy"
+            ],
+            "4": [
+              "m1_yoy",
+              "fx_reserves_yoy",
+              "stock_mktcap_yoy",
+              "central_bank_assets_yoy",
+              "margin_balance_yoy"
+            ],
+            "5": [
+              "cgb10y",
+              "shibor_3m",
+              "consumer_confidence",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y"
+            ],
+            "6": [
+              "pmi",
+              "pmi_non_man"
+            ],
+            "7": [
+              "retail_yoy",
+              "industrial_production_yoy",
+              "real_estate_climate",
+              "fiscal_revenue_yoy"
+            ],
+            "8": [
+              "fai_ytd_yoy",
+              "exports_yoy",
+              "electricity_yoy",
+              "industrial_profit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2020-01-31",
+          "end_date": "2022-12-31",
+          "k": 2,
+          "silhouette": 0.27020405790920005,
+          "silhouette_by_k": {
+            "2": 0.27020405790920005,
+            "3": 0.20556369058986665,
+            "4": 0.22037029271046898,
+            "5": 0.22969849563448946,
+            "6": 0.2218012012810058,
+            "7": 0.24828489499329048,
+            "8": 0.25830020319192365,
+            "9": 0.25824332055842825,
+            "10": 0.25613265221047643
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "shibor_3m",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "tsf_12m_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "lpr_5y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "unemployment",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "pmi",
+              "spread_10y_2y",
+              "pmi_non_man",
+              "cpi_yoy",
+              "m2_yoy",
+              "m1_yoy",
+              "tsf_12m_yoy",
+              "new_credit_yoy",
+              "unemployment"
+            ],
+            "2": [
+              "cgb10y",
+              "shibor_3m",
+              "ppi_yoy",
+              "lpr_1y",
+              "lpr_5y",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "fai_ytd_yoy",
+              "exports_yoy",
+              "imports_yoy",
+              "consumer_confidence",
+              "electricity_yoy",
+              "real_estate_climate",
+              "fx_reserves_yoy",
+              "fiscal_revenue_yoy",
+              "commodity_price_yoy",
+              "stock_mktcap_yoy",
+              "commodity_spot_yoy",
+              "central_bank_assets_yoy",
+              "margin_balance_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y",
+              "industrial_profit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2021-01-31",
+          "end_date": "2023-12-31",
+          "k": 2,
+          "silhouette": 0.3235165351345365,
+          "silhouette_by_k": {
+            "2": 0.3235165351345365,
+            "3": 0.2659335257313107,
+            "4": 0.268478298931968,
+            "5": 0.29045373356139914,
+            "6": 0.205042859976095,
+            "7": 0.2130374688382465,
+            "8": 0.21493956988197185,
+            "9": 0.2075989883209513,
+            "10": 0.20220228499077497
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "shibor_3m",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "tsf_12m_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "lpr_5y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "unemployment",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "spread_10y_2y",
+              "cpi_yoy",
+              "m2_yoy",
+              "m1_yoy",
+              "tsf_12m_yoy",
+              "new_credit_yoy",
+              "fai_ytd_yoy",
+              "unemployment",
+              "fiscal_revenue_yoy"
+            ],
+            "2": [
+              "pmi",
+              "cgb10y",
+              "shibor_3m",
+              "pmi_non_man",
+              "ppi_yoy",
+              "lpr_1y",
+              "lpr_5y",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "exports_yoy",
+              "imports_yoy",
+              "consumer_confidence",
+              "electricity_yoy",
+              "real_estate_climate",
+              "fx_reserves_yoy",
+              "commodity_price_yoy",
+              "stock_mktcap_yoy",
+              "commodity_spot_yoy",
+              "central_bank_assets_yoy",
+              "margin_balance_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y",
+              "industrial_profit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2022-01-31",
+          "end_date": "2024-12-31",
+          "k": 3,
+          "silhouette": 0.2381375470188853,
+          "silhouette_by_k": {
+            "2": 0.21420422350262622,
+            "3": 0.2381375470188853,
+            "4": 0.2213887138138359,
+            "5": 0.21892007319870505,
+            "6": 0.21650134008229724,
+            "7": 0.2045079518317203,
+            "8": 0.21426548266336373,
+            "9": 0.20743044453475326,
+            "10": 0.19456417803484707
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "shibor_3m",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "tsf_12m_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "lpr_5y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "unemployment",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "pmi",
+              "shibor_3m",
+              "pmi_non_man",
+              "retail_yoy",
+              "industrial_production_yoy",
+              "electricity_yoy",
+              "fx_reserves_yoy",
+              "stock_mktcap_yoy",
+              "central_bank_assets_yoy",
+              "margin_balance_yoy"
+            ],
+            "2": [
+              "cgb10y",
+              "m2_yoy",
+              "m1_yoy",
+              "tsf_12m_yoy",
+              "new_credit_yoy",
+              "lpr_1y",
+              "lpr_5y",
+              "real_estate_climate",
+              "fiscal_revenue_yoy",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y"
+            ],
+            "3": [
+              "spread_10y_2y",
+              "cpi_yoy",
+              "ppi_yoy",
+              "fai_ytd_yoy",
+              "exports_yoy",
+              "imports_yoy",
+              "consumer_confidence",
+              "unemployment",
+              "commodity_price_yoy",
+              "commodity_spot_yoy",
+              "industrial_profit_yoy"
+            ]
+          }
+        },
+        {
+          "start_date": "2023-01-31",
+          "end_date": "2025-12-31",
+          "k": 9,
+          "silhouette": 0.26752627273720886,
+          "silhouette_by_k": {
+            "2": 0.24192106092866605,
+            "3": 0.22944407878226197,
+            "4": 0.23698973696604794,
+            "5": 0.23179274463611912,
+            "6": 0.2495666748872693,
+            "7": 0.2652073807922903,
+            "8": 0.26217831245270945,
+            "9": 0.26752627273720886,
+            "10": 0.26029676516677447
+          },
+          "series": [
+            "pmi",
+            "cgb10y",
+            "spread_10y_2y",
+            "shibor_3m",
+            "pmi_non_man",
+            "cpi_yoy",
+            "ppi_yoy",
+            "m2_yoy",
+            "m1_yoy",
+            "tsf_12m_yoy",
+            "new_credit_yoy",
+            "lpr_1y",
+            "lpr_5y",
+            "retail_yoy",
+            "industrial_production_yoy",
+            "fai_ytd_yoy",
+            "exports_yoy",
+            "imports_yoy",
+            "consumer_confidence",
+            "electricity_yoy",
+            "real_estate_climate",
+            "fx_reserves_yoy",
+            "unemployment",
+            "fiscal_revenue_yoy",
+            "commodity_price_yoy",
+            "stock_mktcap_yoy",
+            "commodity_spot_yoy",
+            "central_bank_assets_yoy",
+            "margin_balance_yoy",
+            "cgb2y",
+            "cgb5y",
+            "cgb30y",
+            "industrial_profit_yoy"
+          ],
+          "clusters": {
+            "1": [
+              "cgb10y",
+              "shibor_3m",
+              "lpr_1y",
+              "lpr_5y",
+              "cgb2y",
+              "cgb5y",
+              "cgb30y"
+            ],
+            "2": [
+              "pmi_non_man",
+              "m2_yoy",
+              "retail_yoy",
+              "real_estate_climate",
+              "fiscal_revenue_yoy"
+            ],
+            "3": [
+              "pmi",
+              "consumer_confidence",
+              "unemployment"
+            ],
+            "4": [
+              "new_credit_yoy"
+            ],
+            "5": [
+              "m1_yoy",
+              "tsf_12m_yoy",
+              "stock_mktcap_yoy",
+              "margin_balance_yoy"
+            ],
+            "6": [
+              "ppi_yoy",
+              "commodity_price_yoy",
+              "commodity_spot_yoy",
+              "industrial_profit_yoy"
+            ],
+            "7": [
+              "industrial_production_yoy",
+              "fai_ytd_yoy",
+              "exports_yoy",
+              "imports_yoy"
+            ],
+            "8": [
+              "fx_reserves_yoy",
+              "central_bank_assets_yoy"
+            ],
+            "9": [
+              "spread_10y_2y",
+              "cpi_yoy",
+              "electricity_yoy"
+            ]
+          }
+        }
+      ],
+      "adjacent_ari": [
+        {
+          "window_left": "2012-12-31",
+          "window_right": "2013-12-31",
+          "n_common": 26,
+          "ari": 0.09800967409404489
+        },
+        {
+          "window_left": "2013-12-31",
+          "window_right": "2014-12-31",
+          "n_common": 26,
+          "ari": 0.20982833566639653
+        },
+        {
+          "window_left": "2014-12-31",
+          "window_right": "2015-12-31",
+          "n_common": 28,
+          "ari": 0.08732780968840542
+        },
+        {
+          "window_left": "2015-12-31",
+          "window_right": "2016-12-31",
+          "n_common": 29,
+          "ari": 0.32728420388196305
+        },
+        {
+          "window_left": "2016-12-31",
+          "window_right": "2017-12-31",
+          "n_common": 29,
+          "ari": 0.3216952504347233
+        },
+        {
+          "window_left": "2017-12-31",
+          "window_right": "2018-12-31",
+          "n_common": 29,
+          "ari": 0.24239596939727562
+        },
+        {
+          "window_left": "2018-12-31",
+          "window_right": "2019-12-31",
+          "n_common": 31,
+          "ari": 0.09650259067357513
+        },
+        {
+          "window_left": "2019-12-31",
+          "window_right": "2020-12-31",
+          "n_common": 32,
+          "ari": 0.35329221202547517
+        },
+        {
+          "window_left": "2020-12-31",
+          "window_right": "2021-12-31",
+          "n_common": 32,
+          "ari": 0.09255657835976779
+        },
+        {
+          "window_left": "2021-12-31",
+          "window_right": "2022-12-31",
+          "n_common": 33,
+          "ari": 0.11482820976491863
+        },
+        {
+          "window_left": "2022-12-31",
+          "window_right": "2023-12-31",
+          "n_common": 33,
+          "ari": 0.5455840455840456
+        },
+        {
+          "window_left": "2023-12-31",
+          "window_right": "2024-12-31",
+          "n_common": 33,
+          "ari": 0.03483870967741935
+        },
+        {
+          "window_left": "2024-12-31",
+          "window_right": "2025-12-31",
+          "n_common": 33,
+          "ari": 0.16482803374432187
+        }
+      ],
+      "latest_window_members": {
+        "1": [
+          "cgb10y",
+          "shibor_3m",
+          "lpr_1y",
+          "lpr_5y",
+          "cgb2y",
+          "cgb5y",
+          "cgb30y"
+        ],
+        "2": [
+          "pmi_non_man",
+          "m2_yoy",
+          "retail_yoy",
+          "real_estate_climate",
+          "fiscal_revenue_yoy"
+        ],
+        "3": [
+          "pmi",
+          "consumer_confidence",
+          "unemployment"
+        ],
+        "4": [
+          "new_credit_yoy"
+        ],
+        "5": [
+          "m1_yoy",
+          "tsf_12m_yoy",
+          "stock_mktcap_yoy",
+          "margin_balance_yoy"
+        ],
+        "6": [
+          "ppi_yoy",
+          "commodity_price_yoy",
+          "commodity_spot_yoy",
+          "industrial_profit_yoy"
+        ],
+        "7": [
+          "industrial_production_yoy",
+          "fai_ytd_yoy",
+          "exports_yoy",
+          "imports_yoy"
+        ],
+        "8": [
+          "fx_reserves_yoy",
+          "central_bank_assets_yoy"
+        ],
+        "9": [
+          "spread_10y_2y",
+          "cpi_yoy",
+          "electricity_yoy"
+        ]
+      },
+      "lead_lag_with_gdp": [
+        {
+          "cluster": 1,
+          "lag": -4,
+          "corr": 0.35993288675098317,
+          "n": 64
+        },
+        {
+          "cluster": 1,
+          "lag": -3,
+          "corr": 0.36317883881535823,
+          "n": 65
+        },
+        {
+          "cluster": 1,
+          "lag": -2,
+          "corr": 0.3660880999787708,
+          "n": 66
+        },
+        {
+          "cluster": 1,
+          "lag": -1,
+          "corr": 0.4131294658500688,
+          "n": 67
+        },
+        {
+          "cluster": 1,
+          "lag": 0,
+          "corr": 0.38619149638132555,
+          "n": 67
+        },
+        {
+          "cluster": 1,
+          "lag": 1,
+          "corr": 0.3480153345316718,
+          "n": 66
+        },
+        {
+          "cluster": 1,
+          "lag": 2,
+          "corr": 0.29584027621315495,
+          "n": 65
+        },
+        {
+          "cluster": 1,
+          "lag": 3,
+          "corr": 0.211870038789883,
+          "n": 64
+        },
+        {
+          "cluster": 1,
+          "lag": 4,
+          "corr": 0.23123309964612185,
+          "n": 63
+        },
+        {
+          "cluster": 2,
+          "lag": -4,
+          "corr": 0.2566188039585883,
+          "n": 64
+        },
+        {
+          "cluster": 2,
+          "lag": -3,
+          "corr": 0.3532519405404844,
+          "n": 65
+        },
+        {
+          "cluster": 2,
+          "lag": -2,
+          "corr": 0.43456398412533054,
+          "n": 66
+        },
+        {
+          "cluster": 2,
+          "lag": -1,
+          "corr": 0.5813432127129228,
+          "n": 67
+        },
+        {
+          "cluster": 2,
+          "lag": 0,
+          "corr": 0.7514879299604258,
+          "n": 67
+        },
+        {
+          "cluster": 2,
+          "lag": 1,
+          "corr": 0.5586565429649142,
+          "n": 66
+        },
+        {
+          "cluster": 2,
+          "lag": 2,
+          "corr": 0.48600933085404613,
+          "n": 65
+        },
+        {
+          "cluster": 2,
+          "lag": 3,
+          "corr": 0.39212523058631776,
+          "n": 64
+        },
+        {
+          "cluster": 2,
+          "lag": 4,
+          "corr": 0.2147090516995761,
+          "n": 63
+        },
+        {
+          "cluster": 3,
+          "lag": -4,
+          "corr": 0.21478582099853114,
+          "n": 64
+        },
+        {
+          "cluster": 3,
+          "lag": -3,
+          "corr": 0.15287284811556753,
+          "n": 65
+        },
+        {
+          "cluster": 3,
+          "lag": -2,
+          "corr": 0.14637652717216104,
+          "n": 66
+        },
+        {
+          "cluster": 3,
+          "lag": -1,
+          "corr": 0.1822993293678253,
+          "n": 67
+        },
+        {
+          "cluster": 3,
+          "lag": 0,
+          "corr": 0.36594374440494487,
+          "n": 67
+        },
+        {
+          "cluster": 3,
+          "lag": 1,
+          "corr": 0.33482408537587083,
+          "n": 66
+        },
+        {
+          "cluster": 3,
+          "lag": 2,
+          "corr": 0.33642081063431073,
+          "n": 65
+        },
+        {
+          "cluster": 3,
+          "lag": 3,
+          "corr": 0.36708448812238764,
+          "n": 64
+        },
+        {
+          "cluster": 3,
+          "lag": 4,
+          "corr": 0.20788751137845446,
+          "n": 63
+        },
+        {
+          "cluster": 4,
+          "lag": -4,
+          "corr": 0.13958215624460352,
+          "n": 63
+        },
+        {
+          "cluster": 4,
+          "lag": -3,
+          "corr": 0.16267878923729498,
+          "n": 64
+        },
+        {
+          "cluster": 4,
+          "lag": -2,
+          "corr": 0.17210137907779208,
+          "n": 65
+        },
+        {
+          "cluster": 4,
+          "lag": -1,
+          "corr": 0.10498232591050675,
+          "n": 66
+        },
+        {
+          "cluster": 4,
+          "lag": 0,
+          "corr": 0.19294894833333234,
+          "n": 67
+        },
+        {
+          "cluster": 4,
+          "lag": 1,
+          "corr": 0.21093188605213262,
+          "n": 66
+        },
+        {
+          "cluster": 4,
+          "lag": 2,
+          "corr": 0.20397748872110247,
+          "n": 65
+        },
+        {
+          "cluster": 4,
+          "lag": 3,
+          "corr": 0.28269186810759667,
+          "n": 64
+        },
+        {
+          "cluster": 4,
+          "lag": 4,
+          "corr": 0.15466624364524437,
+          "n": 63
+        },
+        {
+          "cluster": 5,
+          "lag": -4,
+          "corr": 0.053036444438376774,
+          "n": 64
+        },
+        {
+          "cluster": 5,
+          "lag": -3,
+          "corr": 0.046500515628954485,
+          "n": 65
+        },
+        {
+          "cluster": 5,
+          "lag": -2,
+          "corr": 0.10568232877320631,
+          "n": 66
+        },
+        {
+          "cluster": 5,
+          "lag": -1,
+          "corr": 0.24549073075774477,
+          "n": 67
+        },
+        {
+          "cluster": 5,
+          "lag": 0,
+          "corr": 0.4092401202987933,
+          "n": 67
+        },
+        {
+          "cluster": 5,
+          "lag": 1,
+          "corr": 0.3846342056319129,
+          "n": 66
+        },
+        {
+          "cluster": 5,
+          "lag": 2,
+          "corr": 0.3793066618749094,
+          "n": 65
+        },
+        {
+          "cluster": 5,
+          "lag": 3,
+          "corr": 0.35583962035085737,
+          "n": 64
+        },
+        {
+          "cluster": 5,
+          "lag": 4,
+          "corr": 0.3290727621932445,
+          "n": 63
+        },
+        {
+          "cluster": 6,
+          "lag": -4,
+          "corr": -0.041805310574785134,
+          "n": 64
+        },
+        {
+          "cluster": 6,
+          "lag": -3,
+          "corr": 0.22824971151459741,
+          "n": 65
+        },
+        {
+          "cluster": 6,
+          "lag": -2,
+          "corr": 0.33234796306535935,
+          "n": 66
+        },
+        {
+          "cluster": 6,
+          "lag": -1,
+          "corr": 0.41430378893025566,
+          "n": 67
+        },
+        {
+          "cluster": 6,
+          "lag": 0,
+          "corr": 0.35712999361773495,
+          "n": 67
+        },
+        {
+          "cluster": 6,
+          "lag": 1,
+          "corr": 0.17674707263570896,
+          "n": 66
+        },
+        {
+          "cluster": 6,
+          "lag": 2,
+          "corr": 0.08971160647646427,
+          "n": 65
+        },
+        {
+          "cluster": 6,
+          "lag": 3,
+          "corr": 0.024204237922307494,
+          "n": 64
+        },
+        {
+          "cluster": 6,
+          "lag": 4,
+          "corr": 0.02107804005907437,
+          "n": 63
+        },
+        {
+          "cluster": 7,
+          "lag": -4,
+          "corr": 0.11484632285739732,
+          "n": 63
+        },
+        {
+          "cluster": 7,
+          "lag": -3,
+          "corr": 0.34220470038271844,
+          "n": 64
+        },
+        {
+          "cluster": 7,
+          "lag": -2,
+          "corr": 0.41563743826699817,
+          "n": 65
+        },
+        {
+          "cluster": 7,
+          "lag": -1,
+          "corr": 0.5697253795338176,
+          "n": 66
+        },
+        {
+          "cluster": 7,
+          "lag": 0,
+          "corr": 0.7770858791004112,
+          "n": 67
+        },
+        {
+          "cluster": 7,
+          "lag": 1,
+          "corr": 0.46298192019062734,
+          "n": 66
+        },
+        {
+          "cluster": 7,
+          "lag": 2,
+          "corr": 0.3719003244422564,
+          "n": 65
+        },
+        {
+          "cluster": 7,
+          "lag": 3,
+          "corr": 0.2871393608147194,
+          "n": 64
+        },
+        {
+          "cluster": 7,
+          "lag": 4,
+          "corr": 0.170213752417105,
+          "n": 63
+        },
+        {
+          "cluster": 8,
+          "lag": -4,
+          "corr": 0.1827622681207497,
+          "n": 63
+        },
+        {
+          "cluster": 8,
+          "lag": -3,
+          "corr": 0.25346265798128037,
+          "n": 64
+        },
+        {
+          "cluster": 8,
+          "lag": -2,
+          "corr": 0.3448341738606941,
+          "n": 65
+        },
+        {
+          "cluster": 8,
+          "lag": -1,
+          "corr": 0.40322915861589725,
+          "n": 66
+        },
+        {
+          "cluster": 8,
+          "lag": 0,
+          "corr": 0.4056464999376899,
+          "n": 67
+        },
+        {
+          "cluster": 8,
+          "lag": 1,
+          "corr": 0.3666599653402393,
+          "n": 66
+        },
+        {
+          "cluster": 8,
+          "lag": 2,
+          "corr": 0.3238560209132143,
+          "n": 65
+        },
+        {
+          "cluster": 8,
+          "lag": 3,
+          "corr": 0.27985361964753386,
+          "n": 64
+        },
+        {
+          "cluster": 8,
+          "lag": 4,
+          "corr": 0.2748300193049086,
+          "n": 63
+        },
+        {
+          "cluster": 9,
+          "lag": -4,
+          "corr": 0.3971661164048956,
+          "n": 64
+        },
+        {
+          "cluster": 9,
+          "lag": -3,
+          "corr": 0.5490728622570326,
+          "n": 65
+        },
+        {
+          "cluster": 9,
+          "lag": -2,
+          "corr": 0.5116921760857213,
+          "n": 66
+        },
+        {
+          "cluster": 9,
+          "lag": -1,
+          "corr": 0.4786015359802585,
+          "n": 67
+        },
+        {
+          "cluster": 9,
+          "lag": 0,
+          "corr": 0.41892608250890856,
+          "n": 67
+        },
+        {
+          "cluster": 9,
+          "lag": 1,
+          "corr": 0.2812308244029075,
+          "n": 66
+        },
+        {
+          "cluster": 9,
+          "lag": 2,
+          "corr": 0.32876148733787325,
+          "n": 65
+        },
+        {
+          "cluster": 9,
+          "lag": 3,
+          "corr": 0.38457666301355037,
+          "n": 64
+        },
+        {
+          "cluster": 9,
+          "lag": 4,
+          "corr": 0.38029173558968293,
+          "n": 63
+        }
+      ]
+    }
+  },
+  "fit_seconds": 3.609234417002881,
+  "history": {
+    "timings": {
+      "total_seconds": 3.609234417002881
+    },
+    "origins": [
+      {
+        "origin_index": 60,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 60,
+        "converged": true
+      },
+      {
+        "origin_index": 61,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 61,
+        "converged": true
+      },
+      {
+        "origin_index": 62,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 62,
+        "converged": true
+      },
+      {
+        "origin_index": 63,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 63,
+        "converged": true
+      },
+      {
+        "origin_index": 64,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 64,
+        "converged": true
+      },
+      {
+        "origin_index": 65,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 65,
+        "converged": true
+      },
+      {
+        "origin_index": 66,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 66,
+        "converged": true
+      },
+      {
+        "origin_index": 67,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 67,
+        "converged": true
+      },
+      {
+        "origin_index": 68,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 68,
+        "converged": true
+      },
+      {
+        "origin_index": 69,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 69,
+        "converged": true
+      },
+      {
+        "origin_index": 70,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 70,
+        "converged": true
+      },
+      {
+        "origin_index": 71,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 71,
+        "converged": true
+      },
+      {
+        "origin_index": 72,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 72,
+        "converged": true
+      },
+      {
+        "origin_index": 73,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 73,
+        "converged": true
+      },
+      {
+        "origin_index": 74,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 74,
+        "converged": true
+      },
+      {
+        "origin_index": 75,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 75,
+        "converged": true
+      },
+      {
+        "origin_index": 76,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 76,
+        "converged": true
+      },
+      {
+        "origin_index": 77,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 77,
+        "converged": true
+      },
+      {
+        "origin_index": 78,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 78,
+        "converged": true
+      },
+      {
+        "origin_index": 79,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 79,
+        "converged": true
+      },
+      {
+        "origin_index": 80,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 80,
+        "converged": true
+      },
+      {
+        "origin_index": 81,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 81,
+        "converged": true
+      },
+      {
+        "origin_index": 82,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 82,
+        "converged": true
+      },
+      {
+        "origin_index": 83,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 83,
+        "converged": true
+      },
+      {
+        "origin_index": 84,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 84,
+        "converged": true
+      },
+      {
+        "origin_index": 85,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 85,
+        "converged": true
+      },
+      {
+        "origin_index": 86,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 86,
+        "converged": true
+      },
+      {
+        "origin_index": 87,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 87,
+        "converged": true
+      },
+      {
+        "origin_index": 88,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 88,
+        "converged": true
+      },
+      {
+        "origin_index": 89,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 89,
+        "converged": true
+      },
+      {
+        "origin_index": 90,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 90,
+        "converged": true
+      },
+      {
+        "origin_index": 91,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 91,
+        "converged": true
+      },
+      {
+        "origin_index": 92,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 92,
+        "converged": true
+      },
+      {
+        "origin_index": 93,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 93,
+        "converged": true
+      },
+      {
+        "origin_index": 94,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 94,
+        "converged": true
+      },
+      {
+        "origin_index": 95,
+        "block": "tuning",
+        "rank": 6,
+        "n_train": 95,
+        "converged": true
+      },
+      {
+        "origin_index": 96,
+        "block": "test",
+        "rank": 6,
+        "n_train": 96,
+        "converged": true
+      },
+      {
+        "origin_index": 97,
+        "block": "test",
+        "rank": 6,
+        "n_train": 97,
+        "converged": true
+      },
+      {
+        "origin_index": 98,
+        "block": "test",
+        "rank": 6,
+        "n_train": 98,
+        "converged": true
+      },
+      {
+        "origin_index": 99,
+        "block": "test",
+        "rank": 6,
+        "n_train": 99,
+        "converged": true
+      },
+      {
+        "origin_index": 100,
+        "block": "test",
+        "rank": 6,
+        "n_train": 100,
+        "converged": true
+      },
+      {
+        "origin_index": 101,
+        "block": "test",
+        "rank": 6,
+        "n_train": 101,
+        "converged": true
+      },
+      {
+        "origin_index": 102,
+        "block": "test",
+        "rank": 6,
+        "n_train": 102,
+        "converged": true
+      },
+      {
+        "origin_index": 103,
+        "block": "test",
+        "rank": 6,
+        "n_train": 103,
+        "converged": true
+      },
+      {
+        "origin_index": 104,
+        "block": "test",
+        "rank": 6,
+        "n_train": 104,
+        "converged": true
+      },
+      {
+        "origin_index": 105,
+        "block": "test",
+        "rank": 6,
+        "n_train": 105,
+        "converged": true
+      },
+      {
+        "origin_index": 106,
+        "block": "test",
+        "rank": 6,
+        "n_train": 106,
+        "converged": true
+      },
+      {
+        "origin_index": 107,
+        "block": "test",
+        "rank": 6,
+        "n_train": 107,
+        "converged": true
+      },
+      {
+        "origin_index": 108,
+        "block": "test",
+        "rank": 6,
+        "n_train": 108,
+        "converged": true
+      },
+      {
+        "origin_index": 109,
+        "block": "test",
+        "rank": 6,
+        "n_train": 109,
+        "converged": true
+      },
+      {
+        "origin_index": 110,
+        "block": "test",
+        "rank": 6,
+        "n_train": 110,
+        "converged": true
+      },
+      {
+        "origin_index": 111,
+        "block": "test",
+        "rank": 6,
+        "n_train": 111,
+        "converged": true
+      },
+      {
+        "origin_index": 112,
+        "block": "test",
+        "rank": 6,
+        "n_train": 112,
+        "converged": true
+      },
+      {
+        "origin_index": 113,
+        "block": "test",
+        "rank": 6,
+        "n_train": 113,
+        "converged": true
+      },
+      {
+        "origin_index": 114,
+        "block": "test",
+        "rank": 6,
+        "n_train": 114,
+        "converged": true
+      },
+      {
+        "origin_index": 115,
+        "block": "test",
+        "rank": 6,
+        "n_train": 115,
+        "converged": true
+      },
+      {
+        "origin_index": 116,
+        "block": "test",
+        "rank": 6,
+        "n_train": 116,
+        "converged": true
+      },
+      {
+        "origin_index": 117,
+        "block": "test",
+        "rank": 6,
+        "n_train": 117,
+        "converged": true
+      },
+      {
+        "origin_index": 118,
+        "block": "test",
+        "rank": 6,
+        "n_train": 118,
+        "converged": true
+      },
+      {
+        "origin_index": 119,
+        "block": "test",
+        "rank": 6,
+        "n_train": 119,
+        "converged": true
+      },
+      {
+        "origin_index": 120,
+        "block": "test",
+        "rank": 6,
+        "n_train": 120,
+        "converged": true
+      },
+      {
+        "origin_index": 121,
+        "block": "test",
+        "rank": 6,
+        "n_train": 121,
+        "converged": true
+      },
+      {
+        "origin_index": 122,
+        "block": "test",
+        "rank": 6,
+        "n_train": 122,
+        "converged": true
+      },
+      {
+        "origin_index": 123,
+        "block": "test",
+        "rank": 6,
+        "n_train": 123,
+        "converged": true
+      },
+      {
+        "origin_index": 124,
+        "block": "test",
+        "rank": 6,
+        "n_train": 124,
+        "converged": true
+      },
+      {
+        "origin_index": 125,
+        "block": "test",
+        "rank": 6,
+        "n_train": 125,
+        "converged": true
+      },
+      {
+        "origin_index": 126,
+        "block": "test",
+        "rank": 6,
+        "n_train": 126,
+        "converged": true
+      },
+      {
+        "origin_index": 127,
+        "block": "test",
+        "rank": 6,
+        "n_train": 127,
+        "converged": true
+      },
+      {
+        "origin_index": 128,
+        "block": "test",
+        "rank": 6,
+        "n_train": 128,
+        "converged": true
+      },
+      {
+        "origin_index": 129,
+        "block": "test",
+        "rank": 6,
+        "n_train": 129,
+        "converged": true
+      },
+      {
+        "origin_index": 130,
+        "block": "test",
+        "rank": 6,
+        "n_train": 130,
+        "converged": true
+      },
+      {
+        "origin_index": 131,
+        "block": "test",
+        "rank": 6,
+        "n_train": 131,
+        "converged": true
+      },
+      {
+        "origin_index": 132,
+        "block": "test",
+        "rank": 6,
+        "n_train": 132,
+        "converged": true
+      },
+      {
+        "origin_index": 133,
+        "block": "test",
+        "rank": 6,
+        "n_train": 133,
+        "converged": true
+      },
+      {
+        "origin_index": 134,
+        "block": "test",
+        "rank": 6,
+        "n_train": 134,
+        "converged": true
+      },
+      {
+        "origin_index": 135,
+        "block": "test",
+        "rank": 6,
+        "n_train": 135,
+        "converged": true
+      },
+      {
+        "origin_index": 136,
+        "block": "test",
+        "rank": 6,
+        "n_train": 136,
+        "converged": true
+      },
+      {
+        "origin_index": 137,
+        "block": "test",
+        "rank": 6,
+        "n_train": 137,
+        "converged": true
+      },
+      {
+        "origin_index": 138,
+        "block": "test",
+        "rank": 6,
+        "n_train": 138,
+        "converged": true
+      },
+      {
+        "origin_index": 139,
+        "block": "test",
+        "rank": 6,
+        "n_train": 139,
+        "converged": true
+      },
+      {
+        "origin_index": 140,
+        "block": "test",
+        "rank": 6,
+        "n_train": 140,
+        "converged": true
+      },
+      {
+        "origin_index": 141,
+        "block": "test",
+        "rank": 6,
+        "n_train": 141,
+        "converged": true
+      },
+      {
+        "origin_index": 142,
+        "block": "test",
+        "rank": 6,
+        "n_train": 142,
+        "converged": true
+      },
+      {
+        "origin_index": 143,
+        "block": "test",
+        "rank": 6,
+        "n_train": 143,
+        "converged": true
+      },
+      {
+        "origin_index": 144,
+        "block": "test",
+        "rank": 6,
+        "n_train": 144,
+        "converged": true
+      },
+      {
+        "origin_index": 145,
+        "block": "test",
+        "rank": 6,
+        "n_train": 145,
+        "converged": true
+      },
+      {
+        "origin_index": 146,
+        "block": "test",
+        "rank": 6,
+        "n_train": 146,
+        "converged": true
+      },
+      {
+        "origin_index": 147,
+        "block": "test",
+        "rank": 6,
+        "n_train": 147,
+        "converged": true
+      },
+      {
+        "origin_index": 148,
+        "block": "test",
+        "rank": 6,
+        "n_train": 148,
+        "converged": true
+      },
+      {
+        "origin_index": 149,
+        "block": "test",
+        "rank": 6,
+        "n_train": 149,
+        "converged": true
+      },
+      {
+        "origin_index": 150,
+        "block": "test",
+        "rank": 6,
+        "n_train": 150,
+        "converged": true
+      },
+      {
+        "origin_index": 151,
+        "block": "test",
+        "rank": 6,
+        "n_train": 151,
+        "converged": true
+      },
+      {
+        "origin_index": 152,
+        "block": "test",
+        "rank": 6,
+        "n_train": 152,
+        "converged": true
+      },
+      {
+        "origin_index": 153,
+        "block": "test",
+        "rank": 6,
+        "n_train": 153,
+        "converged": true
+      },
+      {
+        "origin_index": 154,
+        "block": "test",
+        "rank": 6,
+        "n_train": 154,
+        "converged": true
+      },
+      {
+        "origin_index": 155,
+        "block": "test",
+        "rank": 6,
+        "n_train": 155,
+        "converged": true
+      },
+      {
+        "origin_index": 156,
+        "block": "test",
+        "rank": 6,
+        "n_train": 156,
+        "converged": true
+      },
+      {
+        "origin_index": 157,
+        "block": "test",
+        "rank": 6,
+        "n_train": 157,
+        "converged": true
+      },
+      {
+        "origin_index": 158,
+        "block": "test",
+        "rank": 6,
+        "n_train": 158,
+        "converged": true
+      },
+      {
+        "origin_index": 159,
+        "block": "test",
+        "rank": 6,
+        "n_train": 159,
+        "converged": true
+      },
+      {
+        "origin_index": 160,
+        "block": "test",
+        "rank": 6,
+        "n_train": 160,
+        "converged": true
+      },
+      {
+        "origin_index": 161,
+        "block": "test",
+        "rank": 6,
+        "n_train": 161,
+        "converged": true
+      },
+      {
+        "origin_index": 162,
+        "block": "test",
+        "rank": 6,
+        "n_train": 162,
+        "converged": true
+      },
+      {
+        "origin_index": 163,
+        "block": "test",
+        "rank": 6,
+        "n_train": 163,
+        "converged": true
+      },
+      {
+        "origin_index": 164,
+        "block": "test",
+        "rank": 6,
+        "n_train": 164,
+        "converged": true
+      },
+      {
+        "origin_index": 165,
+        "block": "test",
+        "rank": 6,
+        "n_train": 165,
+        "converged": true
+      },
+      {
+        "origin_index": 166,
+        "block": "test",
+        "rank": 6,
+        "n_train": 166,
+        "converged": true
+      },
+      {
+        "origin_index": 167,
+        "block": "test",
+        "rank": 6,
+        "n_train": 167,
+        "converged": true
+      },
+      {
+        "origin_index": 168,
+        "block": "test",
+        "rank": 6,
+        "n_train": 168,
+        "converged": true
+      },
+      {
+        "origin_index": 169,
+        "block": "test",
+        "rank": 6,
+        "n_train": 169,
+        "converged": true
+      },
+      {
+        "origin_index": 170,
+        "block": "test",
+        "rank": 6,
+        "n_train": 170,
+        "converged": true
+      },
+      {
+        "origin_index": 171,
+        "block": "test",
+        "rank": 6,
+        "n_train": 171,
+        "converged": true
+      },
+      {
+        "origin_index": 172,
+        "block": "test",
+        "rank": 6,
+        "n_train": 172,
+        "converged": true
+      },
+      {
+        "origin_index": 173,
+        "block": "test",
+        "rank": 6,
+        "n_train": 173,
+        "converged": true
+      },
+      {
+        "origin_index": 174,
+        "block": "test",
+        "rank": 6,
+        "n_train": 174,
+        "converged": true
+      },
+      {
+        "origin_index": 175,
+        "block": "test",
+        "rank": 6,
+        "n_train": 175,
+        "converged": true
+      },
+      {
+        "origin_index": 176,
+        "block": "test",
+        "rank": 6,
+        "n_train": 176,
+        "converged": true
+      },
+      {
+        "origin_index": 177,
+        "block": "test",
+        "rank": 6,
+        "n_train": 177,
+        "converged": true
+      },
+      {
+        "origin_index": 178,
+        "block": "test",
+        "rank": 6,
+        "n_train": 178,
+        "converged": true
+      },
+      {
+        "origin_index": 179,
+        "block": "test",
+        "rank": 6,
+        "n_train": 179,
+        "converged": true
+      },
+      {
+        "origin_index": 180,
+        "block": "test",
+        "rank": 6,
+        "n_train": 180,
+        "converged": true
+      },
+      {
+        "origin_index": 181,
+        "block": "test",
+        "rank": 6,
+        "n_train": 181,
+        "converged": true
+      },
+      {
+        "origin_index": 182,
+        "block": "test",
+        "rank": 6,
+        "n_train": 182,
+        "converged": true
+      },
+      {
+        "origin_index": 183,
+        "block": "test",
+        "rank": 6,
+        "n_train": 183,
+        "converged": true
+      },
+      {
+        "origin_index": 184,
+        "block": "test",
+        "rank": 6,
+        "n_train": 184,
+        "converged": true
+      },
+      {
+        "origin_index": 185,
+        "block": "test",
+        "rank": 6,
+        "n_train": 185,
+        "converged": true
+      },
+      {
+        "origin_index": 186,
+        "block": "test",
+        "rank": 6,
+        "n_train": 186,
+        "converged": true
+      },
+      {
+        "origin_index": 187,
+        "block": "test",
+        "rank": 6,
+        "n_train": 187,
+        "converged": true
+      },
+      {
+        "origin_index": 188,
+        "block": "test",
+        "rank": 6,
+        "n_train": 188,
+        "converged": true
+      },
+      {
+        "origin_index": 189,
+        "block": "test",
+        "rank": 6,
+        "n_train": 189,
+        "converged": true
+      },
+      {
+        "origin_index": 190,
+        "block": "test",
+        "rank": 6,
+        "n_train": 190,
+        "converged": true
+      },
+      {
+        "origin_index": 191,
+        "block": "test",
+        "rank": 6,
+        "n_train": 191,
+        "converged": true
+      },
+      {
+        "origin_index": 192,
+        "block": "test",
+        "rank": 6,
+        "n_train": 192,
+        "converged": true
+      },
+      {
+        "origin_index": 193,
+        "block": "test",
+        "rank": 6,
+        "n_train": 193,
+        "converged": true
+      },
+      {
+        "origin_index": 194,
+        "block": "test",
+        "rank": 6,
+        "n_train": 194,
+        "converged": true
+      },
+      {
+        "origin_index": 195,
+        "block": "test",
+        "rank": 6,
+        "n_train": 195,
+        "converged": true
+      },
+      {
+        "origin_index": 196,
+        "block": "test",
+        "rank": 6,
+        "n_train": 196,
+        "converged": true
+      },
+      {
+        "origin_index": 197,
+        "block": "test",
+        "rank": 6,
+        "n_train": 197,
+        "converged": true
+      },
+      {
+        "origin_index": 198,
+        "block": "test",
+        "rank": 6,
+        "n_train": 198,
+        "converged": true
+      },
+      {
+        "origin_index": 199,
+        "block": "test",
+        "rank": 6,
+        "n_train": 199,
+        "converged": true
+      },
+      {
+        "origin_index": 200,
+        "block": "test",
+        "rank": 6,
+        "n_train": 200,
+        "converged": true
+      }
+    ],
+    "warnings": [],
+    "clustering_windows": 14
+  }
+}
