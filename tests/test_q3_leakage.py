@@ -12,8 +12,8 @@ from scipy.special import ndtr
 from sklearn.metrics import roc_auc_score
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE_PATH = ROOT / "code" / "approach5_q3a_classical.py"
-SPEC = importlib.util.spec_from_file_location("approach5_q3a_classical", MODULE_PATH)
+MODULE_PATH = ROOT / "code" / "approach1_q3a_classical.py"
+SPEC = importlib.util.spec_from_file_location("approach1_q3a_classical", MODULE_PATH)
 assert SPEC is not None and SPEC.loader is not None
 Q3A = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = Q3A

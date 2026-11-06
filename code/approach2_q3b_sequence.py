@@ -36,11 +36,11 @@ CODE = ROOT / "code"
 if str(CODE) not in sys.path:
     sys.path.insert(0, str(CODE))
 
-import approach5_q3a_classical as q3
+import approach1_q3a_classical as q3
 
 DEFAULT_PANEL = ROOT / "data" / "clean" / "macro_panel.csv"
 DEFAULT_META = ROOT / "data" / "clean" / "macro_meta.csv"
-DEFAULT_OUT = ROOT / "results" / "approach6" / "macro"
+DEFAULT_OUT = ROOT / "results" / "approach2" / "macro"
 DEFAULT_LOG = ROOT / ".cache" / "q3b_run.log"
 
 SETTINGS = (

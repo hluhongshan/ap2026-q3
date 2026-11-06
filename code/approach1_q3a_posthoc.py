@@ -16,9 +16,9 @@ CODE = ROOT / "code"
 if str(CODE) not in sys.path:
     sys.path.insert(0, str(CODE))
 
-import approach5_q3a_classical as q3
+import approach1_q3a_classical as q3
 
-RESULTS = ROOT / "results" / "approach5" / "macro"
+RESULTS = ROOT / "results" / "approach1" / "macro"
 METRICS = RESULTS / "metrics.json"
 WALK = RESULTS / "probit_walkforward.csv"
 NOWCAST = RESULTS / "nowcast_paths.csv"

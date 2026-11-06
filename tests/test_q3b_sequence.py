@@ -16,7 +16,7 @@ if str(CODE) not in sys.path:
     sys.path.insert(0, str(CODE))
 
 Q3A_SPEC = importlib.util.spec_from_file_location(
-    "approach5_q3a_classical", CODE / "approach5_q3a_classical.py"
+    "approach1_q3a_classical", CODE / "approach1_q3a_classical.py"
 )
 assert Q3A_SPEC is not None and Q3A_SPEC.loader is not None
 Q3A = importlib.util.module_from_spec(Q3A_SPEC)
@@ -24,7 +24,7 @@ sys.modules[Q3A_SPEC.name] = Q3A
 Q3A_SPEC.loader.exec_module(Q3A)
 
 Q3B_SPEC = importlib.util.spec_from_file_location(
-    "approach6_q3b_sequence", CODE / "approach6_q3b_sequence.py"
+    "approach2_q3b_sequence", CODE / "approach2_q3b_sequence.py"
 )
 assert Q3B_SPEC is not None and Q3B_SPEC.loader is not None
 Q3B = importlib.util.module_from_spec(Q3B_SPEC)

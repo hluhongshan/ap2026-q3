@@ -27,11 +27,11 @@ CODE = ROOT / "code"
 if str(CODE) not in sys.path:
     sys.path.insert(0, str(CODE))
 
-import approach5_q3a_classical as q3
-import approach6_q3b_sequence as q3b
+import approach1_q3a_classical as q3
+import approach2_q3b_sequence as q3b
 
 CACHE = ROOT / ".cache"
-RESULTS = ROOT / "results" / "approach6" / "macro"
+RESULTS = ROOT / "results" / "approach2" / "macro"
 METRICS = RESULTS / "metrics.json"
 DIAG_JSON = CACHE / "q3b_diagnostics.json"
 DIAG_LOG = CACHE / "q3b_diagnostics.log"

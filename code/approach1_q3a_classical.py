@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CLEAN = ROOT / "data" / "clean"
 DEFAULT_PANEL = CLEAN / "macro_panel.csv"
 DEFAULT_META = CLEAN / "macro_meta.csv"
-DEFAULT_OUT = ROOT / "results" / "approach5" / "macro"
+DEFAULT_OUT = ROOT / "results" / "approach1" / "macro"
 CACHE = ROOT / ".cache"
 
 FACTOR_EXCLUSIONS = ("gdp_yoy", "cgb10y", "spread_10y_2y", "shibor_3m")
