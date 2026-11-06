@@ -15,6 +15,8 @@ The work was done in one repository (parent tag `submission`, commit `4521da3`) 
 | `results/approach5/` | `results/approach1/` |
 | `results/approach6/` | `results/approach2/` |
 
+Some code comments, labels and JSON keys keep the old names, such as approach3 or approach5_members. They were left unchanged so that results stay directly comparable with the parent.
+
 ## Commit map
 
 The map is the unedited `git filter-repo` output. `pruned` means the commit became empty for this path set. `same` means filter-repo produced the identical hash; `rewritten` means the hash changed. Shared commits are listed with every repository that retained them.

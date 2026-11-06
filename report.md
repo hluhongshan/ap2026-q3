@@ -19,13 +19,15 @@ Section and table numbers below follow the parent report; only this question's s
 | `results/approach5/` | `results/approach1/` |
 | `results/approach6/` | `results/approach2/` |
 
+Some code comments, labels and JSON keys keep the old names, such as approach3 or approach5_members. They were left unchanged so that results stay directly comparable with the parent.
+
 ## 1. Summary
 
 The repository implements Q3 of the Advanced Programming 2026 brief, options A and B. Q3 forecasts the PMI contraction regime with a classical probit/PCA model (Q3A) and an LSTM with leakage ablations (Q3B).
 
 Q3A beats the expanding prior on Brier score but not persistence (AUC 0.6928 vs 0.7390), and its nowcast beats a random-walk-with-drift benchmark in all periods, including ex-COVID. Q3B does not beat persistence either; the retrained LSTM never predicts a probability above 0.5 on the test block and its test AUC is 0.6422 versus 0.7390 for persistence.
 
-What was not achieved: Q3A and Q3B do not reach the indicative AUC target of 0.75 or beat persistence. The data are daily, without real-time macro vintages.
+What was not achieved: Q3A and Q3B do not reach the indicative AUC target of 0.75 or beat persistence. The data are monthly and use the current revised vintage, not real-time vintages.
 
 ## 2. Environment and one-command reproduction
 
